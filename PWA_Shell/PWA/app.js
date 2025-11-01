@@ -22,26 +22,31 @@ navButtons.forEach(button => {
 // Haptic Feedback
 function triggerHaptic() {
     const statusEl = document.getElementById('haptic-status');
+    let hapticTriggered = false;
     
+    // Try webkit haptic feedback first (iOS native - better quality)
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.haptic) {
+        window.webkit.messageHandlers.haptic.postMessage('impact');
+        hapticTriggered = true;
+    }
+    
+    // Fallback to vibrate API
     if ('vibrate' in navigator) {
-        // Vibrate for 50ms
         navigator.vibrate(50);
-        if (statusEl) {
+        hapticTriggered = true;
+    }
+    
+    // Update status
+    if (statusEl) {
+        if (hapticTriggered) {
             statusEl.textContent = '✅ Haptic feedback triggered!';
             statusEl.style.background = '#d4edda';
             statusEl.style.color = '#155724';
-        }
-    } else {
-        if (statusEl) {
+        } else {
             statusEl.textContent = '⚠️ Haptic feedback not supported on this device';
             statusEl.style.background = '#fff3cd';
             statusEl.style.color = '#856404';
         }
-    }
-    
-    // Try webkit haptic feedback (iOS)
-    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.haptic) {
-        window.webkit.messageHandlers.haptic.postMessage('impact');
     }
 }
 
@@ -115,13 +120,13 @@ function playTone(frequency, duration = 1) {
     }
 }
 
-function stopAudio() {
+async function stopAudio() {
     if (oscillator) {
         oscillator.stop();
         oscillator = null;
     }
     if (audioContext) {
-        audioContext.close();
+        await audioContext.close();
         audioContext = null;
     }
     
@@ -272,6 +277,7 @@ async function startRecording() {
             
             if (animationId) {
                 cancelAnimationFrame(animationId);
+                animationId = null;
             }
         };
         
