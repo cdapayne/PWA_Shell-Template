@@ -41,8 +41,8 @@ struct WebView: UIViewRepresentable {
         // Allow camera and microphone access
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         
-        // Load the PWA
-        if let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "PWA") {
+        // Load the PWA - files are in the bundle root, not in a PWA subdirectory
+        if let url = Bundle.main.url(forResource: "index", withExtension: "html") {
             print("✅ Found PWA at: \(url.path)")
             webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         } else {
@@ -50,8 +50,7 @@ struct WebView: UIViewRepresentable {
             // Try to find PWA directory
             if let bundlePath = Bundle.main.resourcePath {
                 print("Bundle path: \(bundlePath)")
-                let pwaPath = (bundlePath as NSString).appendingPathComponent("PWA")
-                print("Looking for PWA at: \(pwaPath)")
+                print("Looking for index.html in bundle root")
                 
                 // Load a fallback error page
                 let errorHTML = """
@@ -88,7 +87,7 @@ struct WebView: UIViewRepresentable {
                         <h1>⚠️ PWA Not Found</h1>
                         <p>Unable to locate PWA files in the app bundle.</p>
                         <p>Please ensure the PWA folder is included in the Xcode project.</p>
-                        <p><small>Expected path: PWA/index.html</small></p>
+                        <p><small>Expected path: index.html in bundle root</small></p>
                     </div>
                 </body>
                 </html>
