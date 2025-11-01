@@ -29,6 +29,11 @@ struct WebView: UIViewRepresentable {
         let preferences = WKPreferences()
         configuration.preferences = preferences
         
+        // Add message handler for haptic feedback
+        let contentController = WKUserContentController()
+        contentController.add(context.coordinator, name: "haptic")
+        configuration.userContentController = contentController
+        
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
@@ -48,11 +53,20 @@ struct WebView: UIViewRepresentable {
         // No updates needed
     }
     
-    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
         var parent: WebView
         
         init(_ parent: WebView) {
             self.parent = parent
+        }
+        
+        // Handle messages from JavaScript
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            if message.name == "haptic" {
+                // Trigger haptic feedback
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+            }
         }
         
         // Handle camera and microphone permissions
