@@ -61,7 +61,6 @@ PWA_Shell-Template/
 ├── PWA_Shell/
 │   ├── PWA_ShellApp.swift          # App entry point
 │   ├── ContentView.swift           # WebView wrapper with bridges
-│   ├── Info.plist                  # Permissions configuration
 │   └── PWA/                        # Example Progressive Web App
 │       ├── index.html              # Main HTML page
 │       ├── styles.css              # Styling
@@ -70,7 +69,7 @@ PWA_Shell-Template/
 │       ├── service-worker.js       # Offline support
 │       ├── icon.svg                # App icon
 │       └── test.html               # Simple test page
-├── PWA_Shell.xcodeproj/            # Xcode project
+├── PWA_Shell.xcodeproj/            # Xcode project (permissions via INFOPLIST_KEY)
 ├── README.md                       # Project overview
 ├── TESTING.md                      # Test procedures
 ├── CUSTOMIZATION.md                # Customization guide
@@ -115,7 +114,7 @@ Cached Resources: HTML, CSS, JS, manifest
 6. ✅ No security vulnerabilities detected (CodeQL scan)
 
 ### Privacy Compliance
-- Clear usage descriptions in Info.plist
+- Clear usage descriptions via INFOPLIST_KEY entries in Xcode project settings
 - User must explicitly grant permissions
 - No data collection in example PWA
 - Offline-first approach minimizes data transmission
@@ -172,7 +171,7 @@ See TESTING.md for complete test procedures.
 
 ### Customization
 1. Replace files in PWA_Shell/PWA/ with your PWA
-2. Update Info.plist permissions if needed
+2. Update Xcode project settings (INFOPLIST_KEY) permissions if needed
 3. Modify ContentView.swift for advanced customization
 4. Rebuild and test
 

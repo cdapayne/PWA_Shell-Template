@@ -29,7 +29,6 @@ The template includes a fully functional example PWA that demonstrates:
 PWA_Shell/
 ├── PWA_ShellApp.swift        # Main app entry point
 ├── ContentView.swift          # WebView wrapper
-├── Info.plist                 # App permissions configuration
 └── PWA/                       # Example Progressive Web App
     ├── index.html             # Main HTML page
     ├── styles.css             # Styling
@@ -61,7 +60,7 @@ To use your own Progressive Web App:
    - `index.html` (main entry point)
    - `manifest.json` (PWA manifest)
    - `service-worker.js` (for offline support)
-3. Update permissions in `Info.plist` if your PWA requires additional access
+3. Update permissions in Xcode project settings if your PWA requires additional access
 4. Rebuild and run the app
 
 ## Features Explained
@@ -98,7 +97,7 @@ The service worker caches resources:
 
 ## Permissions
 
-The app requests the following permissions (configured in `Info.plist`):
+The app requests the following permissions (configured via INFOPLIST_KEY entries in Xcode project settings):
 
 - **NSCameraUsageDescription**: Camera access for photo capture
 - **NSMicrophoneUsageDescription**: Microphone access for audio recording
@@ -131,7 +130,7 @@ The example PWA can be tested on:
 ## Troubleshooting
 
 ### Camera/Microphone Not Working
-- Ensure Info.plist includes usage descriptions
+- Ensure Xcode project settings have INFOPLIST_KEY permission descriptions
 - Check device permissions in Settings
 - Test on physical device (not simulator)
 

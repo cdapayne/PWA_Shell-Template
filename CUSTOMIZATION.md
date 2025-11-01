@@ -8,7 +8,7 @@ The simplest way to use this template with your own PWA:
 
 1. Replace all files in `PWA_Shell/PWA/` with your PWA files
 2. Ensure your PWA has an `index.html` entry point
-3. Update permissions in `Info.plist` if needed
+3. Update permissions in Xcode project settings if needed
 4. Build and run in Xcode
 
 ## Step-by-Step Customization
@@ -96,28 +96,17 @@ cp -r /path/to/your/pwa/* PWA_Shell/PWA/
 
 Determine what device features your PWA needs:
 
-| Feature | Permission Required | Info.plist Key |
+| Feature | Permission Required | INFOPLIST_KEY |
 |---------|-------------------|----------------|
-| Camera | Yes | NSCameraUsageDescription |
-| Microphone | Yes | NSMicrophoneUsageDescription |
-| Photo Library | Yes | NSPhotoLibraryUsageDescription |
-| Location | Yes | NSLocationWhenInUseUsageDescription |
+| Camera | Yes | INFOPLIST_KEY_NSCameraUsageDescription |
+| Microphone | Yes | INFOPLIST_KEY_NSMicrophoneUsageDescription |
+| Photo Library | Yes | INFOPLIST_KEY_NSPhotoLibraryUsageDescription |
+| Location | Yes | INFOPLIST_KEY_NSLocationWhenInUseUsageDescription |
 | Notifications | No | Built-in |
 
-#### Update Info.plist
+#### Update Xcode Project Settings
 
-Edit `PWA_Shell/Info.plist` to add or remove permissions:
-
-```xml
-<key>NSCameraUsageDescription</key>
-<string>Your reason for camera access</string>
-<key>NSMicrophoneUsageDescription</key>
-<string>Your reason for microphone access</string>
-```
-
-#### Update project.pbxproj
-
-If you added new permissions, also add them to `PWA_Shell.xcodeproj/project.pbxproj`:
+Edit `PWA_Shell.xcodeproj/project.pbxproj` to add or remove permissions in both Debug and Release configurations:
 
 ```
 INFOPLIST_KEY_NSCameraUsageDescription = "Your reason";
@@ -320,13 +309,9 @@ if let url = URL(string: "https://your-domain.com") {
 }
 ```
 
-Update `ATS` in Info.plist if using HTTP:
-```xml
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-</dict>
+Update `ATS` in Xcode project settings if using HTTP by adding to project.pbxproj:
+```
+INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads = YES;
 ```
 
 ### Scenario 4: Hybrid Local + Remote
@@ -348,7 +333,7 @@ webView.loadFileURL(localURL, allowingReadAccessTo: localURL.deletingLastPathCom
 - Clean and rebuild
 
 ### Features Not Working
-- Check permissions in Info.plist
+- Check permissions in Xcode project settings (INFOPLIST_KEY entries)
 - Verify JavaScript bridge is set up
 - Check Safari console for errors
 
