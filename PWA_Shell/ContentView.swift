@@ -41,10 +41,12 @@ struct WebView: UIViewRepresentable {
         // Allow camera and microphone access
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         
-        // Load the PWA - files are in the bundle root, not in a PWA subdirectory
+        // Load the PWA - files from PWA folder are copied to bundle root
         if let url = Bundle.main.url(forResource: "index", withExtension: "html") {
             print("✅ Found PWA at: \(url.path)")
-            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
+            // Allow read access to the entire bundle directory for CSS, JS, and other assets
+            let bundleDirectory = url.deletingLastPathComponent()
+            webView.loadFileURL(url, allowingReadAccessTo: bundleDirectory)
         } else {
             print("❌ Failed to find PWA files in bundle")
             // Try to find PWA directory
