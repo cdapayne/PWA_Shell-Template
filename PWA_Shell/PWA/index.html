@@ -4,53 +4,34 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    
-    <!-- iOS PWA Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="AccessiClock" />
-    
-    <!-- iOS Icons -->
-    <link rel="apple-touch-icon" href="./icon-180.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="./icon-152.png" />
-    <link rel="apple-touch-icon" sizes="167x167" href="./icon-167.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
-    
-    <!-- Standard Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="An AAC Speech Assistant Progressive Web App for communication support" />
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="manifest" href="manifest.json" />
     
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Speakeasy" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="icon-192.png" />
     
-    <title>Accessible Clock & Reminders</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon-192.png" />
+    
+    <title>AAC Speech Assistant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./app.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit&family=Cormorant&family=Fira+Code&display=swap">
+  <script type="module" crossorigin src="./index.js"></script>
   <link rel="stylesheet" crossorigin href="./styles.css">
-<link rel="manifest" href="./manifest.json"></head>
+</head>
 
 <body>
     <div id="root"></div>
-    <script>
-        // Register service worker for PWA functionality
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
-            });
-        }
-    </script>
 </body>
 
 </html>
