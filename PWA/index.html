@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4CAF50">
+    <title>PWA Example</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 PWA Example App</h1>
+            <p class="subtitle">Testing All Features</p>
+        </header>
+
+        <nav class="nav-menu">
+            <button class="nav-btn active" data-page="home">Home</button>
+            <button class="nav-btn" data-page="audio">Audio</button>
+            <button class="nav-btn" data-page="camera">Camera</button>
+            <button class="nav-btn" data-page="microphone">Mic</button>
+        </nav>
+
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <h2>Welcome to PWA Shell</h2>
+            <p>This Progressive Web App demonstrates:</p>
+            <ul>
+                <li>✅ Multi-page navigation</li>
+                <li>✅ Audio playback</li>
+                <li>✅ Camera access</li>
+                <li>✅ Microphone access</li>
+                <li>✅ Haptic feedback</li>
+                <li>✅ Offline support</li>
+            </ul>
+            <button class="btn btn-primary" onclick="triggerHaptic()">Test Haptic Feedback</button>
+            <div id="haptic-status"></div>
+        </div>
+
+        <!-- Audio Page -->
+        <div id="audio-page" class="page">
+            <h2>🎵 Audio Player</h2>
+            <div class="audio-controls">
+                <button class="btn btn-primary" onclick="playBeep()">Play Beep Sound</button>
+                <button class="btn btn-primary" onclick="playTone(440)">Play A Note (440Hz)</button>
+                <button class="btn btn-primary" onclick="playTone(523)">Play C Note (523Hz)</button>
+                <button class="btn btn-danger" onclick="stopAudio()">Stop Audio</button>
+            </div>
+            <div id="audio-status"></div>
+            <audio id="audioPlayer" style="width: 100%; margin-top: 20px;" controls></audio>
+        </div>
+
+        <!-- Camera Page -->
+        <div id="camera-page" class="page">
+            <h2>📷 Camera Access</h2>
+            <div class="camera-controls">
+                <button class="btn btn-primary" onclick="startCamera()">Start Camera</button>
+                <button class="btn btn-danger" onclick="stopCamera()">Stop Camera</button>
+                <button class="btn btn-success" onclick="capturePhoto()">Capture Photo</button>
+            </div>
+            <div class="camera-container">
+                <video id="cameraVideo" autoplay playsinline></video>
+                <canvas id="photoCanvas" style="display: none;"></canvas>
+                <img id="capturedPhoto" style="display: none;">
+            </div>
+            <div id="camera-status"></div>
+        </div>
+
+        <!-- Microphone Page -->
+        <div id="microphone-page" class="page">
+            <h2>🎤 Microphone Access</h2>
+            <div class="mic-controls">
+                <button class="btn btn-primary" onclick="startRecording()">Start Recording</button>
+                <button class="btn btn-danger" onclick="stopRecording()">Stop Recording</button>
+                <button class="btn btn-success" onclick="playRecording()">Play Recording</button>
+            </div>
+            <div id="mic-status"></div>
+            <canvas id="visualizer" width="600" height="200"></canvas>
+            <audio id="recordingPlayer" controls style="width: 100%; margin-top: 20px;"></audio>
+        </div>
+
+        <footer>
+            <p class="status-indicator" id="online-status">🟢 Online</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>
